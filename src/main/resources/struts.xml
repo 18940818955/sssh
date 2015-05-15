@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.action.excludePattern" value="/logout,/login"></constant>
+
+
+	<package name="default" namespace="/" extends="struts-default">
+		<global-exception-mappings>
+			<exception-mapping result="accessException"
+				exception="org.springframework.security.AccessDeniedException" name="accessException"></exception-mapping>
+		</global-exception-mappings>
+		<action name="index">
+			<result>/index.jsp</result>
+		</action>
+		<action name="product_*" method="{1}" class="productAction">
+			<result name="list">/views/product/list.jsp</result>
+			<result name="editUI">/views/product/editUI.jsp</result>
+			<result name="tolist" type="redirectAction">product_list</result>
+		</action>
+		<action name="order_*" method="{1}" class="orderAction">
+			<result name="list">/views/order/list.jsp</result>
+			<result name="editUI">/views/order/editUI.jsp</result>
+			<result name="tolist" type="redirectAction">order_list</result>
+		</action>
+		<action name="user_*" method="{1}" class="userAction">
+			<result name="list">/views/user/list.jsp</result>
+			<result name="editUI">/views/user/editUI.jsp</result>
+			<result name="tolist" type="redirectAction">user_list</result>
+		</action>
+	</package>
+
+
+</struts>
