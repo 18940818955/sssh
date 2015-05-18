@@ -14,7 +14,7 @@ public class UserServiceImpl extends BaseDaoImpl<User> implements UserService {
 	public UserDetails findByUsername(String username) {
 		User user = (User) getSession()
 				.createQuery(
-						"from User u join fetch u.role r where u.username=:username ")
+						"from User u join fetch u.roles r where u.username=:username ")
 				.setParameter("username", username).uniqueResult();
 		return (UserDetails) user;
 	}

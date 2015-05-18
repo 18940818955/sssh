@@ -45,13 +45,22 @@ public class Role {
 		this.description = description;
 	}
 
-	@OneToMany(mappedBy="role")
+	@ManyToMany(mappedBy = "roles")
 	public Set<User> getUsers() {
 		return users;
 	}
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	public Role() {
+		super();
+	}
+
+	public Role(String name) {
+		super();
+		this.name = name;
 	}
 
 }

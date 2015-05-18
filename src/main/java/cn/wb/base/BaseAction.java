@@ -3,6 +3,11 @@ package cn.wb.base;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import cn.wb.service.OrderService;
+import cn.wb.service.ProductService;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -69,5 +74,10 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	public void setResultList(List resultList) {
 		this.resultList = resultList;
 	}
-
+	//--------------------------------------
+	@Resource
+	protected OrderService orderService;
+	@Resource
+	protected ProductService productService;
+	
 }

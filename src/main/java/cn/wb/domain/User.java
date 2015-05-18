@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -31,8 +32,25 @@ public class User implements UserDetails {
 	private String mobile; // 手机
 	private String email;// 邮箱
 	private String weixinid;// 微信号 （三者不能同时为空）
-	private Role role;
+	private Set<Role> roles;
+
 	private Set<Order> orders;
+
+	@Transient
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
+		GrantedAuthority ga;
+		for (Role role : roles) {
+			ga = new SimpleGrantedAuthority(role.getName());
+			gas.add(ga);
+		}
+		return gas;
+	}
+
+	public String getEmail() {
+		return email;
+	}
 
 	@Id
 	@GeneratedValue
@@ -40,66 +58,12 @@ public class User implements UserDetails {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getWeixinid() {
-		return weixinid;
-	}
-
-	public void setWeixinid(String weixinid) {
-		this.weixinid = weixinid;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "roleid")
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
+	public String getName() {
+		return name;
 	}
 
 	@OneToMany(mappedBy = "createUser")
@@ -107,17 +71,22 @@ public class User implements UserDetails {
 		return orders;
 	}
 
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
+	public String getPassword() {
+		return password;
 	}
 
-	@Transient
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
-		GrantedAuthority ga = new SimpleGrantedAuthority(role.getName());
-		gas.add(ga);
-		return gas;
+	@ManyToMany
+	@JoinTable(name = "t_user_role", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "roleid") })
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getWeixinid() {
+		return weixinid;
 	}
 
 	@Transient
@@ -142,6 +111,54 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setWeixinid(String weixinid) {
+		this.weixinid = weixinid;
+	}
+
+	public User() {
+		super();
+	}
+
+	public User(String username, String password, String email, Set<Role> roles) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.roles = roles;
 	}
 
 }
