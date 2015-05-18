@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.wb.domain.Product;
 import cn.wb.domain.Role;
 import cn.wb.domain.User;
 

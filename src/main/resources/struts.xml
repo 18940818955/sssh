@@ -26,6 +26,7 @@
 		</action>
 		<action name="order_*" method="{1}" class="orderAction">
 			<result name="list">/views/order/list.jsp</result>
+			<result name="addUI">/views/order/addUI.jsp</result>
 			<result name="editUI">/views/order/editUI.jsp</result>
 			<result name="tolist" type="redirectAction">order_list</result>
 		</action>

@@ -33,22 +33,17 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 		return model;
 	}
 
-	// =================service引入====================
+	// -------------------常用传值-------------------
+	protected List<Integer> ids;
 	protected Object resultBean;
-	protected Object param;
-	protected Integer parentid;
 	protected List resultList;
 
-	protected static final String list = "list";
-	protected static final String editUI = "editUI";
-	protected static final String tolist = "tolist";
-
-	public Object getParam() {
-		return param;
+	public List<Integer> getIds() {
+		return ids;
 	}
 
-	public void setParam(Object param) {
-		this.param = param;
+	public void setIds(List<Integer> ids) {
+		this.ids = ids;
 	}
 
 	public Object getResultBean() {
@@ -59,14 +54,6 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 		this.resultBean = resultBean;
 	}
 
-	public Integer getParentid() {
-		return parentid;
-	}
-
-	public void setParentid(Integer parentid) {
-		this.parentid = parentid;
-	}
-
 	public List getResultList() {
 		return resultList;
 	}
@@ -74,10 +61,16 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	public void setResultList(List resultList) {
 		this.resultList = resultList;
 	}
-	//--------------------------------------
+
+	// ----------------常用常量-------------------
+	protected static final String list = "list";
+	protected static final String editUI = "editUI";
+	protected static final String tolist = "tolist";
+
+	// =================service引入====================
 	@Resource
 	protected OrderService orderService;
 	@Resource
 	protected ProductService productService;
-	
+
 }

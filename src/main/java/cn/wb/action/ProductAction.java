@@ -8,8 +8,14 @@ import cn.wb.domain.Product;
 
 @Controller
 @Scope("prototype")
-public class ProductAction extends BaseAction<Product>{
-	public String list(){
+public class ProductAction extends BaseAction<Product> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2406242233883176361L;
+
+	public String list() throws Exception {
+		resultList = productService.findAll();
 		return list;
 	}
 }
